@@ -33,14 +33,4 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<CategoryType> categoryTypes;
 
-    public static void main(String[] args) {
-        Category category = Category.builder()
-                .name("Test")
-                .code("C123")
-                .description("Test Desc")
-                .build();
-
-        System.out.println(category.getName());
-    }
-
 }

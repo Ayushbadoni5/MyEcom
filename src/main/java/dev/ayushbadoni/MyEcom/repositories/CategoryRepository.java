@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.repository;
+package dev.ayushbadoni.MyEcom.repositories;
 
 import dev.ayushbadoni.MyEcom.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -20,6 +20,6 @@ public class CategoryDto {
     private String code;
     private String description;
 
-    private List<CategoryTypeDto> categoryType;
+    private List<CategoryTypeDto> categoryTypes;
 
 }

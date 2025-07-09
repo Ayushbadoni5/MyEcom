@@ -21,6 +21,6 @@ public class CategoryTypeDto {
 
     private String description;
 
-    private List<CategoryTypeDto> categoryTypeList;
+    private List<CategoryTypeDto> categoryTypes;
 
 }

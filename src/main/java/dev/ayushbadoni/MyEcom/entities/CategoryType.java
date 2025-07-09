@@ -1,5 +1,6 @@
 package dev.ayushbadoni.MyEcom.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class CategoryType {
     @Id
     @GeneratedValue
+    @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
     @Column(nullable = false)
@@ -30,5 +32,6 @@ public class CategoryType {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
 }
