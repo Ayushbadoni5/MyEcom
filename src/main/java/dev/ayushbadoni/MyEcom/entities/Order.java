@@ -1,7 +1,6 @@
 package dev.ayushbadoni.MyEcom.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.ayushbadoni.MyEcom.auth.entities.User;
 import jakarta.persistence.*;
 import lombok.*;
 

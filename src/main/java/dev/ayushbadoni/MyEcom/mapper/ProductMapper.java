@@ -98,6 +98,12 @@ public class ProductMapper {
                 .name(product.getName())
                 .isNewArrival(product.isNewArrival())
                 .slug(product.getSlug())
+                .categoryId(product.getCategory() != null ? product.getCategory().getId(): null )
+                .categoryName(product.getName() != null ? product.getCategory().getName(): null)
+                .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId(): null)
+                .categoryTypeName(product.getCategoryType() != null? product.getCategoryType().getName():null)
+                .variants(mapProductVariantListToDto(product.getProductVariants()))
+                .productResources(mapProductResourcesListToDto(product.getResources()))
                 .thumbnail(getProductThumbnail(product.getResources()))
                 .build();
     }

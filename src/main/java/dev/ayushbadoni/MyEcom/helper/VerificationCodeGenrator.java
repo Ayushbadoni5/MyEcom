@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.helper;
+package dev.ayushbadoni.MyEcom.helper;
 
 import java.util.Random;
 

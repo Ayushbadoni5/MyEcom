@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.exceptions;
+package dev.ayushbadoni.MyEcom.entities;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

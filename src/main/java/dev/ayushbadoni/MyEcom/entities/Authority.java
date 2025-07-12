@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.entities;
+package dev.ayushbadoni.MyEcom.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,6 @@
 
-package com.thecodereveal.shopease.auth.config;
+package dev.ayushbadoni.MyEcom.config;
 
-import dev.ayushbadoni.MyEcom.auth.config.JWTTokenHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

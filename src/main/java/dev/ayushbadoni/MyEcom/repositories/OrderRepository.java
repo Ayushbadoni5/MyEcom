@@ -1,6 +1,6 @@
 package dev.ayushbadoni.MyEcom.repositories;
 
-import dev.ayushbadoni.MyEcom.auth.entities.User;
+import dev.ayushbadoni.MyEcom.entities.User;
 import dev.ayushbadoni.MyEcom.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

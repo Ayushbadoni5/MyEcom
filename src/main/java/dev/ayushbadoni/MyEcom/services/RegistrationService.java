@@ -1,10 +1,10 @@
-package dev.ayushbadoni.MyEcom.auth.services;
+package dev.ayushbadoni.MyEcom.services;
 
-import dev.ayushbadoni.MyEcom.auth.dtos.RegistrationRequest;
-import dev.ayushbadoni.MyEcom.auth.dtos.RegistrationResponse;
-import dev.ayushbadoni.MyEcom.auth.entities.User;
-import dev.ayushbadoni.MyEcom.auth.helper.VerificationCodeGenrator;
-import dev.ayushbadoni.MyEcom.auth.repositories.UserDetailRepository;
+import dev.ayushbadoni.MyEcom.dto.RegistrationRequest;
+import dev.ayushbadoni.MyEcom.dto.RegistrationResponse;
+import dev.ayushbadoni.MyEcom.entities.User;
+import dev.ayushbadoni.MyEcom.helper.VerificationCodeGenrator;
+import dev.ayushbadoni.MyEcom.repositories.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

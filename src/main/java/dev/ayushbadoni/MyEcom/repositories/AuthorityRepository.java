@@ -1,6 +1,6 @@
-package dev.ayushbadoni.MyEcom.auth.repositories;
+package dev.ayushbadoni.MyEcom.repositories;
 
-import dev.ayushbadoni.MyEcom.auth.entities.Authority;
+import dev.ayushbadoni.MyEcom.entities.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

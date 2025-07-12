@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.config;
+package dev.ayushbadoni.MyEcom.config;
 
 
 import io.jsonwebtoken.Claims;

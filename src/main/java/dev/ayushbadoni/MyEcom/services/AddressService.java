@@ -1,6 +1,6 @@
 package dev.ayushbadoni.MyEcom.services;
 
-import dev.ayushbadoni.MyEcom.auth.entities.User;
+import dev.ayushbadoni.MyEcom.entities.User;
 import dev.ayushbadoni.MyEcom.dto.AddressRequest;
 import dev.ayushbadoni.MyEcom.entities.Address;
 import dev.ayushbadoni.MyEcom.repositories.AddressRepository;
@@ -20,8 +20,8 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address createAddress(AddressRequest addressRequest, Principal principal){
-        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+    public Address createAddress(AddressRequest addressRequest, Principal loggedInUser){
+        User user = (User) userDetailsService.loadUserByUsername(loggedInUser.getName());
         Address address=Address.builder()
                 .name(addressRequest.getName())
                 .street(addressRequest.getStreet())

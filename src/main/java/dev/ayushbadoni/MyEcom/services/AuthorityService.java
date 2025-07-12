@@ -1,8 +1,8 @@
-package dev.ayushbadoni.MyEcom.auth.services;
+package dev.ayushbadoni.MyEcom.services;
 
 
-import dev.ayushbadoni.MyEcom.auth.entities.Authority;
-import dev.ayushbadoni.MyEcom.auth.repositories.AuthorityRepository;
+import dev.ayushbadoni.MyEcom.entities.Authority;
+import dev.ayushbadoni.MyEcom.repositories.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,6 @@
-package dev.ayushbadoni.MyEcom.auth.entities;
+package dev.ayushbadoni.MyEcom.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.ayushbadoni.MyEcom.entities.Address;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

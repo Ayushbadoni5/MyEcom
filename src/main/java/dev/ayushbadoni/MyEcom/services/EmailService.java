@@ -1,6 +1,6 @@
-package dev.ayushbadoni.MyEcom.auth.services;
+package dev.ayushbadoni.MyEcom.services;
 
-import dev.ayushbadoni.MyEcom.auth.entities.User;
+import dev.ayushbadoni.MyEcom.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

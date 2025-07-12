@@ -20,8 +20,8 @@ public class AddressController {
     private AddressService addressService;
 
     @PostMapping
-    public ResponseEntity<Address> createAddress(@RequestBody AddressRequest addressRequest,Principal principal){
-        Address address = addressService.createAddress(addressRequest,principal);
+    public ResponseEntity<Address> createAddress(@RequestBody AddressRequest addressRequest,Principal loggedInUser){
+        Address address = addressService.createAddress(addressRequest,loggedInUser);
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
 

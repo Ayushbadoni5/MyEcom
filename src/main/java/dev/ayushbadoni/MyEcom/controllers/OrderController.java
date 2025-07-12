@@ -1,6 +1,6 @@
 package dev.ayushbadoni.MyEcom.controllers;
 
-import dev.ayushbadoni.MyEcom.auth.dtos.OrderResponse;
+import dev.ayushbadoni.MyEcom.dto.OrderResponse;
 import dev.ayushbadoni.MyEcom.dto.OrderDetails;
 import dev.ayushbadoni.MyEcom.dto.OrderRequest;
 import dev.ayushbadoni.MyEcom.dto.PaymentStatusUpdateRequest;
@@ -23,8 +23,8 @@ public class OrderController {
 
 
     @PostMapping
-    public ResponseEntity <?> createOrder(@RequestBody OrderRequest orderRequest, Principal principal) throws Exception {
-        OrderResponse orderResponse = orderService.createOrder(orderRequest,principal);
+    public ResponseEntity <?> createOrder(@RequestBody OrderRequest orderRequest, Principal loggedInUser) throws Exception {
+        OrderResponse orderResponse = orderService.createOrder(orderRequest,loggedInUser);
         return new ResponseEntity<>(orderResponse,HttpStatus.OK);
     }
 
@@ -35,14 +35,14 @@ public class OrderController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<OrderDetails>> getOrderByUser(Principal principal){
-        List<OrderDetails> orders = orderService.getOrderByUser(principal.getName());
+    public ResponseEntity<List<OrderDetails>> getOrderByUser(Principal loggedInUser){
+        List<OrderDetails> orders = orderService.getOrderByUser(loggedInUser.getName());
         return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
     @PostMapping("/cancel/{id}")
-    public ResponseEntity<?> cancelOrder(@PathVariable UUID id, Principal principal){
-        orderService.cancelOrder(id,principal);
+    public ResponseEntity<?> cancelOrder(@PathVariable UUID id, Principal loggedInUser){
+        orderService.cancelOrder(id, loggedInUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

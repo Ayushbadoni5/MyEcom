@@ -1,5 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.dtos;
-
+package dev.ayushbadoni.MyEcom.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class RegistrationResponse  {
-
-    private int code;
-    private String message;
+public class LoginRequest {
+    private String username;
+    private CharSequence password;
 }

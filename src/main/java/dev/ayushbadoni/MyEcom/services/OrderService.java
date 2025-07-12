@@ -1,7 +1,7 @@
 package dev.ayushbadoni.MyEcom.services;
 
-import dev.ayushbadoni.MyEcom.auth.dtos.OrderResponse;
-import dev.ayushbadoni.MyEcom.auth.entities.User;
+import dev.ayushbadoni.MyEcom.dto.OrderResponse;
+import dev.ayushbadoni.MyEcom.entities.User;
 import dev.ayushbadoni.MyEcom.dto.*;
 import dev.ayushbadoni.MyEcom.entities.*;
 import dev.ayushbadoni.MyEcom.repositories.OrderRepository;
@@ -34,8 +34,8 @@ public class OrderService {
     RazorpayService razorpayService;
 
     @Transactional
-    public OrderResponse createOrder(OrderRequest orderRequest, Principal principal) throws Exception {
-        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+    public OrderResponse createOrder(OrderRequest orderRequest, Principal loggedInUser) throws Exception {
+        User user = (User) userDetailsService.loadUserByUsername(loggedInUser.getName());
         Address address = user.getAddressList().stream()
                 .filter(address1 -> orderRequest.getAddressId().equals(address1.getId())).findFirst()
                 .orElseThrow(BadRequestException::new);
@@ -110,18 +110,32 @@ public class OrderService {
         User user = (User) userDetailsService.loadUserByUsername(name);
         List<Order> orders = orderRepository.findByUser(user);
 
-        return orders.stream().map(order ->{
-            return OrderDetails.builder()
-                    .id(order.getId())
-                    .orderDate(order.getOrderDate())
-                    .orderStatus(order.getOrderStatus())
-                    .address(mapToAddressRequest(order.getAddress()))
-                    .totalAmount(order.getTotalAmount())
-                    .shipmentNumber(order.getShipmentTrackingNumber())
-                    .orderItemList(getItemDetails(order.getOrderItemList()))
-                    .expectedDelivery(order.getExpectedDeliveryDate())
-                    .build();
-        } ).toList();
+//        return orders.stream().map(order ->{
+//            return OrderDetails.builder()
+//                    .id(order.getId())
+//                    .orderDate(order.getOrderDate())
+//                    .orderStatus(order.getOrderStatus())
+//                    .address(mapToAddressRequest(order.getAddress()))
+//                    .totalAmount(order.getTotalAmount())
+//                    .shipmentNumber(order.getShipmentTrackingNumber())
+//                    .orderItemList(getItemDetails(order.getOrderItemList()))
+//                    .expectedDelivery(order.getExpectedDeliveryDate())
+//                    .build();
+//        } ).toList();
+        return orders.stream()
+                .filter(order -> order.getAddress() != null) // skip orders with null address
+                .map(order -> {
+                    return OrderDetails.builder()
+                            .id(order.getId())
+                            .orderDate(order.getOrderDate())
+                            .orderStatus(order.getOrderStatus())
+                            .address(mapToAddressRequest(order.getAddress()))
+                            .totalAmount(order.getTotalAmount())
+                            .shipmentNumber(order.getShipmentTrackingNumber())
+                            .orderItemList(getItemDetails(order.getOrderItemList()))
+                            .expectedDelivery(order.getExpectedDeliveryDate())
+                            .build();
+                }).toList();
     }
 
     private AddressRequest mapToAddressRequest(Address address) {
@@ -150,8 +164,8 @@ public class OrderService {
 
 
 
-    public void cancelOrder(UUID id, Principal principal) {
-        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+    public void cancelOrder(UUID id, Principal loggedInUser) {
+        User user = (User) userDetailsService.loadUserByUsername(loggedInUser.getName());
         Order order = orderRepository.findById(id).get();
         if (null != order && order.getUser().getId().equals(user.getId())){
             order.setOrderStatus(OrderStatus.CANCELLED);

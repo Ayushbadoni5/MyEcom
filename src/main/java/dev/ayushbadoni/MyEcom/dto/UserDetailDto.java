@@ -1,4 +1,4 @@
-package dev.ayushbadoni.MyEcom.auth.dtos;
+package dev.ayushbadoni.MyEcom.dto;
 
 import dev.ayushbadoni.MyEcom.entities.Address;
 import lombok.AllArgsConstructor;

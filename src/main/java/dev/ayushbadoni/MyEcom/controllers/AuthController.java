@@ -1,12 +1,12 @@
-package dev.ayushbadoni.MyEcom.auth.controller;
+package dev.ayushbadoni.MyEcom.controllers;
 
-import dev.ayushbadoni.MyEcom.auth.config.JWTTokenHelper;
-import dev.ayushbadoni.MyEcom.auth.dtos.LoginRequest;
-import dev.ayushbadoni.MyEcom.auth.dtos.RegistrationRequest;
-import dev.ayushbadoni.MyEcom.auth.dtos.RegistrationResponse;
-import dev.ayushbadoni.MyEcom.auth.dtos.UserToken;
-import dev.ayushbadoni.MyEcom.auth.entities.User;
-import dev.ayushbadoni.MyEcom.auth.services.RegistrationService;
+import dev.ayushbadoni.MyEcom.config.JWTTokenHelper;
+import dev.ayushbadoni.MyEcom.dto.LoginRequest;
+import dev.ayushbadoni.MyEcom.dto.RegistrationRequest;
+import dev.ayushbadoni.MyEcom.dto.RegistrationResponse;
+import dev.ayushbadoni.MyEcom.dto.UserToken;
+import dev.ayushbadoni.MyEcom.entities.User;
+import dev.ayushbadoni.MyEcom.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

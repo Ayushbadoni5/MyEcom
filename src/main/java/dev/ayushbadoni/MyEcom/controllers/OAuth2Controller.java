@@ -1,9 +1,9 @@
-package dev.ayushbadoni.MyEcom.auth.controller;
+package dev.ayushbadoni.MyEcom.controllers;
 
 
-import dev.ayushbadoni.MyEcom.auth.config.JWTTokenHelper;
-import dev.ayushbadoni.MyEcom.auth.entities.User;
-import dev.ayushbadoni.MyEcom.auth.services.OAuth2Service;
+import dev.ayushbadoni.MyEcom.config.JWTTokenHelper;
+import dev.ayushbadoni.MyEcom.entities.User;
+import dev.ayushbadoni.MyEcom.services.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

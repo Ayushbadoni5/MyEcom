@@ -1,8 +1,7 @@
-package dev.ayushbadoni.MyEcom.auth.config;
+package dev.ayushbadoni.MyEcom.config;
 
 
-import com.thecodereveal.shopease.auth.config.JWTAuthenticationFilter;
-import dev.ayushbadoni.MyEcom.auth.exceptions.RESTAuthenticationEntryPoint;
+import dev.ayushbadoni.MyEcom.entities.RESTAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
