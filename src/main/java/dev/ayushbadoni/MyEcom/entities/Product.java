@@ -67,9 +67,7 @@ public class Product {
     @JsonIgnore
     private CategoryType categoryType;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Resources> resources;
+
 
     @PrePersist
     protected void onCreate() {

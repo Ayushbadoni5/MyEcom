@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,18 +46,21 @@ public class ProductController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody ProductDto productDto){
         Product product = productService.addProduct(productDto);
         return new ResponseEntity<>(product,HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping
     public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto){
         Product product = productService.updateProduct(productDto);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") UUID productId){
         productService.deleteProductById(productId);

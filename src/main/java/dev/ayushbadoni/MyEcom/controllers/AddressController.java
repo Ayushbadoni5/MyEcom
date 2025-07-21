@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.UUID;
 
@@ -26,8 +27,8 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAddress(@PathVariable UUID id){
-        addressService.deleteAddress(id);
+    public ResponseEntity<?> deleteAddress(@PathVariable UUID id,Principal loggedInUser) throws AccessDeniedException {
+        addressService.deleteAddress(id,loggedInUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
  }

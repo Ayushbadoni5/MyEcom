@@ -1,17 +1,24 @@
 package dev.ayushbadoni.MyEcom.config;
 
 
+import dev.ayushbadoni.MyEcom.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class JWTTokenHelper {
@@ -25,14 +32,32 @@ public class JWTTokenHelper {
     @Value("${jwt.auth.expires_in}")
     private int expiresIn;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     public String generateToken(String userName){
+
+        User user = (User) userDetailsService.loadUserByUsername(userName);
+        List<String> roles = user.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles); // ✅ roles added as claim
+
+        return createToken(claims, userName);
+    }
+
+    private String createToken(Map<String, Object> claims, String userName) {
         return Jwts.builder()
-                .issuer(appName)
-                .subject(userName)
-                .issuedAt(new Date())
+                .setClaims(claims)
+                .setSubject(userName)
+                .setIssuedAt(new Date())
                 .expiration(generateExpireDate())
                 .signWith(getSigninKey())
                 .compact();
+
     }
 
     private Date generateExpireDate() {

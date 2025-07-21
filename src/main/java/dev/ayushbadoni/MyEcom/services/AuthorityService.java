@@ -15,15 +15,35 @@ public class AuthorityService {
     @Autowired
     private  AuthorityRepository authorityRepository;
 
+    public Authority getOrCreateAuthority(String roleCode, String roleDescription){
+        return authorityRepository.findByRoleCode(roleCode)
+                .stream()
+                .findFirst()
+                .orElseGet(()->{
+                    Authority authority = Authority.builder()
+                            .roleCode(roleCode)
+                            .roleDescription(roleDescription)
+                            .build();
+                    return authorityRepository.save(authority);
+                });
+    }
 
-    public List<Authority> getUserAuthority(){
+    public List<Authority> getAuthorities(List<String> roles){
         List<Authority> authorities = new ArrayList<>();
-        Authority authority = authorityRepository.findByRoleCode("ROLE_USER");
-        authorities.add(authority);
+        for (String role: roles){
+            String formattedRole = role.toUpperCase();
+                    if(formattedRole.equals("ROLE_ADMIN") || formattedRole.equals("ADMIN")){
+                        authorities.add(getOrCreateAuthority("ROLE_ADMIN","Administrator access"));
+                    } else {
+                        authorities.add(getOrCreateAuthority("ROLE_USER","User access"));
+                    }
+
+        }
         return authorities;
     }
-    public Authority createAuthority(String role, String description){
-        Authority authority =Authority.builder().roleCode("ROLE_" + role.toUpperCase()).roleDescription(description).build();
-        return authorityRepository.save(authority);
+
+    public List<Authority> getDeafultUserAuthority(){
+        return List.of(getOrCreateAuthority("USER","DEFAULT USER ACCESS"));
     }
+
 }

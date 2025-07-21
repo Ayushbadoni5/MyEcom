@@ -21,7 +21,7 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String roleCode;
 
     @Column(nullable = false)

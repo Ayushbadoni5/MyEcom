@@ -2,7 +2,6 @@ package dev.ayushbadoni.MyEcom.mapper;
 
 
 import dev.ayushbadoni.MyEcom.dto.ProductDto;
-import dev.ayushbadoni.MyEcom.dto.ProductResourceDto;
 import dev.ayushbadoni.MyEcom.dto.ProductVariantDto;
 import dev.ayushbadoni.MyEcom.entities.*;
 import dev.ayushbadoni.MyEcom.services.CategoryService;
@@ -48,28 +47,10 @@ public class ProductMapper {
             product.setProductVariants(mapToProductVariant(productDto.getVariants(),product));
         }
 
-        if (null != productDto.getProductResources()){
-            product.setResources(mapToProductResources(productDto.getProductResources(),product));
-        }
-
         return product;
     }
 
-    private List<Resources> mapToProductResources(List<ProductResourceDto> productResources, Product product) {
-        return productResources.stream().map(productResourceDto -> {
-            Resources resources = new Resources();
-            if (null != productResourceDto.getId()){
-                resources.setId(productResourceDto.getId());
-            }
-            resources.setName(productResourceDto.getName());
-            resources.setUrl(productResourceDto.getUrl());
-            resources.setType(productResourceDto.getType());
-            resources.setIsPrimary(productResourceDto.getIsPrimary());
-            resources.setProduct(product);
-            return resources;
-        }).collect((Collectors.toList()));
 
-    }
     private List<ProductVariant> mapToProductVariant(List<ProductVariantDto> productVariantDtos, Product product){
         return productVariantDtos.stream().map(productVariantDto -> {
             ProductVariant productVariant = new ProductVariant();
@@ -78,7 +59,6 @@ public class ProductMapper {
             }
             productVariant.setColor(productVariantDto.getColor());
             productVariant.setSize(productVariantDto.getSize());
-            productVariant.setStockQuantity(productVariantDto.getStockQuantity());
             productVariant.setProduct(product);
             return productVariant;
         }).collect(Collectors.toList());
@@ -103,13 +83,7 @@ public class ProductMapper {
                 .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId(): null)
                 .categoryTypeName(product.getCategoryType() != null? product.getCategoryType().getName():null)
                 .variants(mapProductVariantListToDto(product.getProductVariants()))
-                .productResources(mapProductResourcesListToDto(product.getResources()))
-                .thumbnail(getProductThumbnail(product.getResources()))
                 .build();
-    }
-
-    private String getProductThumbnail(List<Resources> resources) {
-        return resources.stream().filter(Resources::getIsPrimary).findFirst().orElse(null).getUrl();
     }
 
     public List<ProductVariantDto> mapProductVariantListToDto(List<ProductVariant> productVariants) {
@@ -121,22 +95,7 @@ public class ProductMapper {
                 .color(productVariant.getColor())
                 .id(productVariant.getId())
                 .size(productVariant.getSize())
-                .stockQuantity(productVariant.getStockQuantity())
                 .build();
     }
-
-    public List<ProductResourceDto> mapProductResourcesListToDto(List<Resources> resources) {
-        return resources.stream().map(this::mapResourceToDto).toList();
-    }
-
-    private ProductResourceDto mapResourceToDto(Resources resources) {
-        return ProductResourceDto.builder()
-                .url(resources.getUrl())
-                .type(resources.getType())
-                .id(resources.getId())
-                .isPrimary(resources.getIsPrimary())
-                .name(resources.getName())
-                .build();
-    }
-
 }
+

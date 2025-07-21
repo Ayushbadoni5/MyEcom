@@ -24,30 +24,45 @@ public class User implements UserDetails {
     @GeneratedValue
     private UUID id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
     @Column(nullable = false,unique = true)
     private String email;
 
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    private Date updatedOn;
 
+    @Column(nullable = false)
     @JsonIgnore
     private String password;
 
+    @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private String verificationCode;
 
+
+    @Column(nullable = false)
     private boolean enabled = false;
+//    private boolean enabled = false;
     // Shows if the user account is active or verified (false means not verified yet)
 
 
     private String provider;
     // Tells how user signed in: 'local' for email-password, 'google' for Google login
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdOn = new Date();
+    }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "Auth_User_Authority", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))

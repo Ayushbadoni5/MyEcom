@@ -16,7 +16,7 @@ public class OAuth2Service {
     private  AuthorityService authorityService;
 
     public User getUser(String userName) {
-        return userDetailRepository.findByEmail(userName);
+        return userDetailRepository.findByEmail(userName).orElseThrow(()-> new RuntimeException("User not found with email: " + userName));
     }
 
     public User cresteUser(OAuth2User oAuth2User, String provider) {
@@ -31,7 +31,7 @@ public class OAuth2Service {
                 .email(email)
                 .provider(provider)
                 .enabled(true)
-                .authorities(authorityService.getUserAuthority())
+                .authorities(authorityService.getDeafultUserAuthority())
                 .build();
         return userDetailRepository.save(user);
     }

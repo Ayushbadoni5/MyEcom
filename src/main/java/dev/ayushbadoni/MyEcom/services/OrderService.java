@@ -110,18 +110,6 @@ public class OrderService {
         User user = (User) userDetailsService.loadUserByUsername(name);
         List<Order> orders = orderRepository.findByUser(user);
 
-//        return orders.stream().map(order ->{
-//            return OrderDetails.builder()
-//                    .id(order.getId())
-//                    .orderDate(order.getOrderDate())
-//                    .orderStatus(order.getOrderStatus())
-//                    .address(mapToAddressRequest(order.getAddress()))
-//                    .totalAmount(order.getTotalAmount())
-//                    .shipmentNumber(order.getShipmentTrackingNumber())
-//                    .orderItemList(getItemDetails(order.getOrderItemList()))
-//                    .expectedDelivery(order.getExpectedDeliveryDate())
-//                    .build();
-//        } ).toList();
         return orders.stream()
                 .filter(order -> order.getAddress() != null) // skip orders with null address
                 .map(order -> {
@@ -178,7 +166,7 @@ public class OrderService {
     @Value("${razorpay.key_secret}")
     private String razorpaySecret;
 
-    public OrderResponse updatePaymentStatus(PaymentStatusUpdateRequest request) {
+    public OrderResponse updatePaymentStatus(PaymentStatusUpdateRequest request, Principal loggedInUser) {
         boolean isValid = razorpayService.verifySignature(
                 request.getRazorpayOrderId(),
                 request.getRazorpayPaymentId(),

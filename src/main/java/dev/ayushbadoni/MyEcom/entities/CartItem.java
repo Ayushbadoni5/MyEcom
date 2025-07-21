@@ -1,33 +1,41 @@
 package dev.ayushbadoni.MyEcom.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "product_variant")
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ProductVariant {
+@Data
+@Table(name = "cart_item")
+
+public class CartItem {
+
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
-    private String color;
-
-    @Column(nullable = false)
-    private String size;
-
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonIgnore
     private Product product;
+
+    @Column(nullable = false)
+    private int quantity;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id" ,nullable = false)
+    private Cart cart;
+
+
 }

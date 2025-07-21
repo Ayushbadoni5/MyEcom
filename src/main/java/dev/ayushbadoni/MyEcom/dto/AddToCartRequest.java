@@ -8,13 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ProductResourceDto {
-    private UUID id;
-    private String name;
-    private String url;
-    private String type;
-    private Boolean isPrimary;
+public class AddToCartRequest {
+    private UUID productId;
+    private int quantity;
 }

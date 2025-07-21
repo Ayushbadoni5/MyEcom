@@ -1,10 +1,11 @@
 package dev.ayushbadoni.MyEcom.services;
 
 import dev.ayushbadoni.MyEcom.entities.User;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,19 +20,26 @@ public class EmailService {
     public String sendMail(User user){
         String subject = " Verify your email";
         String senderName = "MyEcom";
-        String mailContent = "Hello "+ user.getUsername();
-        mailContent += "Your verification code is : <strong>"+ user.getVerificationCode() +"</strong><br>";
-        mailContent += "Please enter this code to verify your account.<br>";
-        mailContent += "<strong>" + senderName +"<strong>";
+
+
+        String mailContent = "<p>Hello <strong> "+ user.getUsername()+"</strong>,</p>";
+        mailContent += "<p>Your verification code is : <strong>"+ user.getVerificationCode() +"</strong></p>";
+        mailContent += "<p>Please enter this code to verify your account.</p>";
+        mailContent += "<br><strong>" + senderName +"</strong>";
 
         try {
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(user.getEmail());
-            mailMessage.setText(mailContent);
-            mailMessage.setSubject(subject);
+            MimeMessage mailMessage = javaMailSender.createMimeMessage();
+
+            MimeMessageHelper helper = new MimeMessageHelper(mailMessage, true);
+            helper.setFrom(sender);
+            helper.setTo(user.getEmail());
+            helper.setSubject(subject);
+            helper.setText(mailContent,true);
+
             javaMailSender.send(mailMessage);
+
         }catch (Exception e){
+            e.printStackTrace(); // helpful for debugging
             return "Error while Sending Mail";
         }
         return "Email sent";

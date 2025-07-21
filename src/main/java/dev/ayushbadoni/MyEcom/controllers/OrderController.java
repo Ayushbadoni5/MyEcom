@@ -29,8 +29,8 @@ public class OrderController {
     }
 
     @PostMapping("/update-payment-status")
-    public ResponseEntity<OrderResponse> updatePaymentStatus(@RequestBody PaymentStatusUpdateRequest request){
-        OrderResponse orderResponse = orderService.updatePaymentStatus(request);
+    public ResponseEntity<OrderResponse> updatePaymentStatus(@RequestBody PaymentStatusUpdateRequest request,Principal loggedInUser){
+        OrderResponse orderResponse = orderService.updatePaymentStatus(request,loggedInUser);
         return new ResponseEntity<>(orderResponse,HttpStatus.OK);
     }
 
