@@ -47,8 +47,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.30</version> <!-- ✅ Use latest stable -->
-			<scope>provided</scope>    <!-- ✅ required to activate lombok correctly -->
+			<version>1.18.30</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
